@@ -10,14 +10,13 @@ export default function Home() {
   const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-      setSocket(io(process.env.NEXT_PUBLIC_SERVER_URL!));
+    const sock = io(process.env.NEXT_PUBLIC_SERVER_URL!);
+    setSocket(sock);
 
-      return () => {
-          if(socket) {
-              socket.disconnect();
-              setSocket(null);
-          }
-      }
+    return () => {
+      sock.disconnect();
+      setSocket(null);
+    }
   }, []);
 
 

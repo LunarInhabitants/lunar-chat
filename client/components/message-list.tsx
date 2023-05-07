@@ -36,7 +36,7 @@ export const MessageList = () => {
                 message: "*Note: Messages are **not** currently saved! If you refresh the page, they're gone!*",
              }]);
         }
-    }, []);
+    }, [messages.length]);
 
     return (
         <div ref={scrollerRef} className="overflow-auto flex-1 p-4">

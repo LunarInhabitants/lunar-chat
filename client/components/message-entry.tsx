@@ -1,12 +1,21 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useContext, useRef, useState } from "react";
+"use client";
+
+import { ChangeEvent, FormEvent, KeyboardEvent, useContext, useEffect, useRef, useState } from "react";
 import { SocketContext } from "./socket-context";
 
 export const MessageEntry = () => {
     const socket = useContext(SocketContext);
     const textarea = useRef<HTMLTextAreaElement>(null);
-    const [username, setUsername] = useState(localStorage.getItem("username") ?? `user#${Math.floor(Math.random() * 1000)}`);
+    const [username, setUsername] = useState(`user#${Math.floor(Math.random() * 1000)}`);
     const [message, setMessage] = useState("");
     const [isSending, setIsSending] = useState(false);
+
+    useEffect(() => {
+        const u = localStorage.getItem("username");
+        if(u) {
+            setUsername(u);
+        }
+    }, []);
 
     const onSetUsername = (e: ChangeEvent<HTMLInputElement>) => {
         const newUsername = e.target.value;
