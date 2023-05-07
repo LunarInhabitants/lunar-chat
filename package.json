@@ -1,0 +1,19 @@
+{
+  "name": "lunarchat",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --kill-others \"pnpm --filter lunarchat-client dev\" \"pnpm --filter lunarchat-server start\"",
+    "build": "pnpm --filter lunarchat-client build",
+    "start": "concurrently --kill-others \"pnpm --filter lunarchat-client start\" \"pnpm --filter lunarchat-server start\"",
+    "lint": "pnpm --filter lunarchat-client lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}

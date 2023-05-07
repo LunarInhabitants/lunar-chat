@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+.message-entry a {
+  position: relative;
+  color: var(--color-sky-500);
+  text-decoration: underline;
+}
+
+.message-entry a::after {
+  content: attr(href);
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  color: var(--color-gray-50);
+  background-color: var(--color-gray-900);
+  box-shadow: 8px 8px 8px rgba(0,0,0,0.5);
+  padding: 0.5rem 1rem;
+  pointer-events: none;
+  transition: opacity 200ms ease-in-out;
+  opacity: 0;
+}
+
+
+.message-entry a:hover {
+  color: var(--color-sky-300);
+}
+
+.message-entry a:hover::after {
+  opacity: 1;
+}
+
