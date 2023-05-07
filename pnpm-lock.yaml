@@ -10,6 +10,9 @@ importers:
 
   client:
     dependencies:
+      '@types/emojione':
+        specifier: ^2.2.6
+        version: 2.2.6
       '@types/node':
         specifier: 20.1.0
         version: 20.1.0
@@ -22,6 +25,9 @@ importers:
       autoprefixer:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.23)
+      emojione:
+        specifier: ^4.5.0
+        version: 4.5.0
       eslint:
         specifier: 8.40.0
         version: 8.40.0
@@ -352,6 +358,10 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
+    dev: false
+
+  /@types/emojione@2.2.6:
+    resolution: {integrity: sha512-2OJGfbqLOFFawMp61cxpJ+QsLA/2LDUdqWb2YMVNP8q/FXSxdkv0hdqm3EcjNfyfcpZ0HjOjMATwXdx/xpTlOA==}
     dev: false
 
   /@types/hast@2.3.4:
@@ -978,6 +988,10 @@ packages:
 
   /emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
+    dev: false
+
+  /emojione@4.5.0:
+    resolution: {integrity: sha512-Tq55Y3UgPOnayFDN+Qd6QMP0rpoH10a1nhSFN27s8gXW3qymgFIHiXys2ECYYAI134BafmI3qP9ni2rZOe9BjA==}
     dev: false
 
   /engine.io-client@6.4.0:

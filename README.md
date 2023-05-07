@@ -16,4 +16,4 @@ To run a local copy, clone the repository, then run `pnpm install` to install th
 - [ ] Fetch persistent message storage when the client first loads the page.
 - [ ] Auth.
 - [ ] Multiple channels.
-- [ ] Emoji support.
+- [x] Emoji support.

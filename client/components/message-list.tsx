@@ -2,7 +2,7 @@
 
 import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { SocketContext } from "./socket-context";
-import ReactMarkdown from 'react-markdown'
+import { MessageEntry } from "./message-entry";
 
 export const MessageList = () => {
     const socket = useContext(SocketContext);
@@ -29,34 +29,28 @@ export const MessageList = () => {
 
     useEffect(() => {
         if (messages.length == 0) {
-            setMessages([{
-                id: 0,
-                timestamp: Date.UTC(2069, 4, 20, 13, 37, 42),
-                user: "SYSTEM",
-                message: "*Note: Messages are **not** currently saved! If you refresh the page, they're gone!*",
-             }]);
+            setMessages([
+                {
+                    id: 0,
+                    timestamp: Date.UTC(2069, 4, 20, 13, 37, 42),
+                    user: "SYSTEM",
+                    body: "*Messages support standard markdown, with the addition that a single newline will actually have a newline, rather than needing two.*",
+                },
+                {
+                    id: 1,
+                    timestamp: Date.UTC(2069, 4, 20, 13, 37, 42),
+                    user: "SYSTEM",
+                    body: "*Note: Messages are **not** currently saved! If you refresh the page, they're gone!*",
+                }
+            ]);
         }
     }, [messages.length]);
 
     return (
         <div ref={scrollerRef} className="overflow-auto flex-1 p-4">
-            {messages.map(m => {
-                const timestamp = new Date(m.timestamp);
-
-                return (
-                    <div key={m.id} className="grid grid-cols-[6rem,1fr] mt-2 text-gray-50 message-entry">
-                        <div className="bg-gray-900 px-4 py-2 flex items-center">
-                            {m.user}
-                        </div>
-                        <div className="bg-gray-800 px-4 pt-0 pb-2">
-                            <time dateTime={timestamp.toISOString()} className="text-xs text-gray-400">
-                                {timestamp.toLocaleString([], { dateStyle: "full", timeStyle: "medium" })}
-                            </time>
-                            <ReactMarkdown>{m.message}</ReactMarkdown>
-                        </div>
-                    </div>
-                );
-            })}
+            {messages.map(m => (
+                <MessageEntry key={m.id} message={m} />
+            ))}
         </div>
     );
 }

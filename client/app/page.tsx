@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageEntry } from '@/components/message-entry';
+import { MessageInput } from '@/components/message-input';
 import { MessageList } from '@/components/message-list';
 import { SocketContext } from '@/components/socket-context'
 import { useEffect, useState } from 'react';
@@ -22,12 +22,12 @@ export default function Home() {
 
   return (
     <SocketContext.Provider value={socket}>
-      <aside className="w-1/6 border-r bg-slate-900">
+      <aside className="w-1/6 border-r bg-slate-900 hidden md:block">
         Some channels and/or servers
       </aside>
       <main className="flex-1 flex flex-col items-stretch justify-between p-4 overflow-auto">
         <MessageList />
-        <MessageEntry />
+        <MessageInput />
       </main>
     </SocketContext.Provider>
   )

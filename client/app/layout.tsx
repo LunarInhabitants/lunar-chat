@@ -15,7 +15,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen max-h-screen flex flex-col`}>
+      <body className={`${inter.className} min-h-screen max-h-screen flex flex-col text-xs sm:text-base`}>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emojione@4.0.0/extras/css/emojione.min.css"/>
         <header className="p-4 bg-white/20">
           <h1 className="text-2xl">LunarChat!</h1>
         </header>
