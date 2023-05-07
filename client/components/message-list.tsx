@@ -34,7 +34,7 @@ export const MessageList = () => {
                     id: 0,
                     timestamp: Date.UTC(2069, 4, 20, 13, 37, 42),
                     user: "SYSTEM",
-                    body: "*Messages support standard markdown, with the addition that a single newline will actually have a newline, rather than needing two.*",
+                    body: "*Messages support standard markdown and emoji using :shortcode:s (For example, \\:turtle\\: for :turtle:), with the addition that a single newline will actually have a newline, rather than needing two.*",
                 },
                 {
                     id: 1,
