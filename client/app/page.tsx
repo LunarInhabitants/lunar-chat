@@ -1,7 +1,7 @@
 "use client";
 
-import { MessageInput } from '@/components/message-input';
-import { MessageList } from '@/components/message-list';
+import { MessageInput } from '@/components/messaging/message-input';
+import { MessageList } from '@/components/messaging/message-list';
 import { SocketContext } from '@/components/socket-context'
 import { useEffect, useState } from 'react';
 import { Socket, io } from 'socket.io-client';

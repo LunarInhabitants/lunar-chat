@@ -1,15 +1,15 @@
 "use client"
 
 import { useCallback, useContext, useEffect, useRef, useState } from "react"
-import { SocketContext } from "./socket-context";
+import { SocketContext } from "@/components/socket-context";
 import { MessageEntry } from "./message-entry";
 
 export const MessageList = () => {
     const socket = useContext(SocketContext);
     const scrollerRef = useRef<HTMLDivElement>(null);
-    const [messages, setMessages] = useState<IMessage[]>([]);
+    const [messages, setMessages] = useState<LunarChatMessage[]>([]);
 
-    const addNewMessage = useCallback((msg: IMessage) => {
+    const addNewMessage = useCallback((msg: LunarChatMessage) => {
         const newMessages = [...messages, msg];
         setMessages(newMessages);
         setTimeout(() => {
@@ -27,6 +27,7 @@ export const MessageList = () => {
         }
     }, [socket, addNewMessage]);
 
+    
     useEffect(() => {
         if (messages.length == 0) {
             setMessages([

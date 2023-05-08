@@ -2,17 +2,17 @@
   "name": "lunarchat-server",
   "version": "0.1.0",
   "description": "",
+  "author": "Lunar Inhabitants",
+  "license": "ISC",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Lunar Inhabitants",
-  "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "lunarchat-shared": "workspace:../shared",
     "socket.io": "^4.6.1"
   },
   "devDependencies": {

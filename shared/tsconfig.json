@@ -20,18 +20,11 @@
       "sourceMap": false,
       "baseUrl": "./"
   },
-  "files": [
-      "src/index.ts"
-  ],
   "include": [
-      "./**/*.ts",
-      "../shared/src/lunarchat.d.ts"
+      "./**/*.ts"
   ],
   "exclude": [
       "node_modules",
       "dist"
-  ],
-  "ts-node": {
-      "esm": true,
-  }
+  ]
 } 

@@ -1,6 +1,9 @@
 {
   "name": "lunarchat-client",
   "version": "0.1.0",
+  "description": "",
+  "author": "Lunar Inhabitants",
+  "license": "ISC",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,7 +20,9 @@
     "emojione": "^4.5.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
+    "lunarchat-shared": "workspace:../shared",
     "next": "13.4.1",
+    "next-auth": "^4.22.1",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",

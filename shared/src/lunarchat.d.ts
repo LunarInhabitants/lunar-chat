@@ -1,4 +1,4 @@
-interface IMessage {
+interface LunarChatMessage {
     id: number;
     timestamp: number;
     user: string;

@@ -18,8 +18,7 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket: Socket) => {
-    socket.on("msg:send", (msg: any, callback: () => void) => {
-        console.log(msg);
+    socket.on("msg:send", (msg: LunarChatMessage, callback: () => void) => {
         io.emit("msg:receive", msg);
         callback();
     })
