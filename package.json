@@ -4,9 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --kill-others \"pnpm --filter lunarchat-client dev\" \"pnpm --filter lunarchat-server start\"",
-    "build": "pnpm --filter lunarchat-client build",
-    "start": "concurrently --kill-others \"pnpm --filter lunarchat-client start\" \"pnpm --filter lunarchat-server start\"",
+    "dev": "concurrently --kill-others \"pnpm dev:client\" \"pnpm dev:server\"",
+    "dev:client": "pnpm --filter lunarchat-client dev",
+    "dev:server": "pnpm --filter lunarchat-server start",
+
+    "build": "pnpm build:server && pnpm build:client",
+    "build:client":  "pnpm --filter lunarchat-client build",
+    "build:server": "",
+
+    "start": "concurrently --kill-others \"pnpm start:client\" \"pnpm start:server\"",
+    "start:client": "pnpm --filter lunarchat-client start",
+    "start:server": "pnpm --filter lunarchat-server start",
+
     "lint": "pnpm --filter lunarchat-client lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
