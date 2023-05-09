@@ -11,7 +11,7 @@ export const MessageInput = () => {
     const [message, setMessage] = useState("");
     const [isSending, setIsSending] = useState(false);
 
-    const username = session?.data?.user?.name ?? "<UNKNOWN>";
+    const username = session?.data?.user?.id ?? "";
 
     const handleInput = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if(e.key === "Enter" && !e.shiftKey) {
@@ -30,7 +30,7 @@ export const MessageInput = () => {
             alert("Not connected!");
             return;
         }
-        
+
         setIsSending(true);
 
         const msg: LunarChatMessage = {

@@ -1,6 +1,5 @@
 import ReactMarkdown from 'react-markdown';
 import emojione from 'emojione';
-import { useSession } from 'next-auth/react';
 
 interface Props {
     message: LunarChatMessage;
@@ -19,7 +18,7 @@ export const MessageEntry = ({ message }: Props) => {
     return (
         <div key={message.id} className="grid grid-cols-[6rem,1fr] mt-2 text-gray-50 message-entry">
             <div className="bg-gray-900 px-4 py-2 flex items-center">
-                
+                <img src={`/api/user/${message.user}/icon`} alt="User" />
             </div>
             <div className="bg-gray-800 px-4 pt-1 pb-2">
                 <div className={`flex gap-2 items-center ${messageIsOnlyEmoji ? `mb-0` : `mb-2`}`}>
