@@ -8,7 +8,8 @@
     "dev:client": "pnpm --filter lunarchat-client dev",
     "dev:server": "pnpm --filter lunarchat-server start",
 
-    "build": "pnpm build:server && pnpm build:client",
+    "build": "pnpm build:shared && pnpm build:server && pnpm build:client",
+    "build:shared":  "pnpm --filter lunarchat-shared build",
     "build:client":  "pnpm --filter lunarchat-client build",
     "build:server": "echo \"Nothing to build right now\"",
 
