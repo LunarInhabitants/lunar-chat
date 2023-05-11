@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import type { RealmChannel, RealmChannelGroup } from '@prisma/client';
-import { getChannelGroupsForRealm } from '@/src/channels/channels';
+import { getChannelGroupsForRealm } from '@/src/channels';
 
 interface Props {
     realmId: string;

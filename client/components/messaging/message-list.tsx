@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { SocketContext } from "@/components/socket-context";
 import { MessageEntry } from "./message-entry";
 import type { ChannelMessageWithOwnerAndChannel } from "lunarchat-shared/src/lunarchat";
-import { getMessagesInChannel } from "@/src/messages/messages";
+import { getMessagesInChannel } from "@/src/messages";
 
 interface Props {
     channelId: string;

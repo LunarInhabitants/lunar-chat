@@ -1,6 +1,6 @@
 "use client";
 
-import { getRealmsForUser } from '@/src/realms/realms';
+import { getRealmsForUser } from '@/src/realms';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import type { Realm } from '@prisma/client';
