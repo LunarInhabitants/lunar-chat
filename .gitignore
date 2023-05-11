@@ -1,4 +1,5 @@
 # .gitignore
 .vercel
 node_modules
-client/.env.local
+.env
+client/.env

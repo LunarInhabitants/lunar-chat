@@ -1,5 +1,4 @@
 import { prisma } from 'lunarchat-shared/src/db/prismaClient'
-import { NextResponse } from 'next/server';
 import { redirect } from 'next/navigation';
 
 interface Context {

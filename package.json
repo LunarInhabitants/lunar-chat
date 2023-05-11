@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --kill-others \"pnpm dev:client\" \"pnpm dev:server\"",
+    "dev": "pnpm db:generate && concurrently --kill-others \"pnpm dev:client\" \"pnpm dev:server\"",
     "dev:client": "pnpm --filter lunarchat-client dev",
     "dev:server": "pnpm --filter lunarchat-server start",
 
     "build": "pnpm build:shared && pnpm build:server && pnpm build:client",
-    "build:shared":  "pnpm --filter lunarchat-shared build",
-    "build:client":  "pnpm --filter lunarchat-client build",
+    "build:shared": "pnpm --filter lunarchat-shared build",
+    "build:client": "pnpm --filter lunarchat-client build",
     "build:server": "echo \"Nothing to build right now\"",
 
     "start": "concurrently --kill-others \"pnpm start:client\" \"pnpm start:server\"",
@@ -20,7 +20,9 @@
     "db:migrate:deploy": "pnpm --filter lunarchat-shared db:migrate:deploy",
     "db:migrate:dev": "pnpm --filter lunarchat-shared db:migrate:dev",
     "db:push": "pnpm --filter lunarchat-shared db:push",
-
+    "db:generate": "pnpm --filter lunarchat-shared db:generate",
+    "db:seed": "pnpm --filter lunarchat-shared db:seed",
+    
     "lint": "pnpm --filter lunarchat-client lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,6 +30,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "dotenv-cli": "^7.2.1",
     "prisma": "^4.14.0"
   },
   "dependencies": {

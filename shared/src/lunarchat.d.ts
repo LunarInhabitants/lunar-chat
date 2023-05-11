@@ -1,6 +1,6 @@
-interface LunarChatMessage {
-    id: number;
-    timestamp: number;
-    user: string;
-    body: string;
-}
+import type { ChannelMessage, RealmChannel, User } from "@prisma/client";
+
+type ChannelMessageWithOwnerAndChannel = ChannelMessage & {
+    owner?: User | null;
+    channel?: RealmChannel | null;
+};
