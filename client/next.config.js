@@ -12,9 +12,6 @@ const nextConfig = {
             'bufferutil': 'commonjs bufferutil',
         })
         return config
-    },
-    experimental: {
-        externalDir: true
     }
 };
 
