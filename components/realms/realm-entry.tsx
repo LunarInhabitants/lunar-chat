@@ -54,7 +54,7 @@ interface RealmEntryImageProps {
 const RealmEntryImage = ({ src, alt, className, selected }: RealmEntryImageProps) => {
     return (
         <img src={src} alt={alt}
-            className={`w-12 rounded-[50%] group-hover:rounded-[25%] border-2 border-white transition-[border-radius,background-color] ${className ? className : ''}`}
+            className={`w-12 rounded-[50%] min-w-[2rem] aspect-square group-hover:rounded-[25%] border-2 border-white transition-[border-radius,background-color] ${className ? className : ''}`}
         />
     );
 }
