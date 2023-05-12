@@ -5,7 +5,7 @@ import { ChannelMessageWithOwnerAndChannel } from '../src/messages';
 
 
 // Make sure we have a port to listen on.
-const port = Number(process.env.LUNARCHAT_SERVER_PORT ?? process.env.PORT);
+const port = Number(process.env.PORT ?? process.env.LUNARCHAT_SERVER_PORT);
 if(!port || isNaN(port)) {
     throw new Error(`The supplied LUNARCHAT_SERVER_PORT or PORT environment variable is missing or invalid!`);
 }
