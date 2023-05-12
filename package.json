@@ -3,38 +3,61 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "pnpm db:generate && concurrently --kill-others \"pnpm dev:client\" \"pnpm dev:server\"",
-    "dev:client": "pnpm --filter lunarchat-client dev",
-    "dev:server": "pnpm --filter lunarchat-server start",
-
-    "build": "pnpm build:shared && pnpm build:server && pnpm build:client",
-    "build:shared": "pnpm --filter lunarchat-shared build",
-    "build:client": "pnpm --filter lunarchat-client build",
+    "dev:client": "next dev",
+    "dev:server": "pnpm start:server",
+    "build": "db:generate && pnpm build:server && pnpm build:client",
+    "build:client": "next build",
     "build:server": "echo \"Nothing to build right now\"",
-
     "start": "concurrently --kill-others \"pnpm start:client\" \"pnpm start:server\"",
-    "start:client": "pnpm --filter lunarchat-client start",
-    "start:server": "pnpm --filter lunarchat-server start",
-
-    "db:migrate:deploy": "pnpm --filter lunarchat-shared db:migrate:deploy",
-    "db:migrate:dev": "pnpm --filter lunarchat-shared db:migrate:dev",
-    "db:push": "pnpm --filter lunarchat-shared db:push",
-    "db:generate": "pnpm --filter lunarchat-shared db:generate",
-    "db:seed": "pnpm --filter lunarchat-shared db:seed",
-    
-    "lint": "pnpm --filter lunarchat-client lint",
+    "start:client": "next start",
+    "start:server": "dotenv -c -- ts-node wss-server/index.ts",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:generate": "prisma generate",
+    "db:seed": "prisma db seed",
+    "lint": "next lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "dotenv-cli": "^7.2.1",
-    "prisma": "^4.14.0"
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@nanostores/react": "^0.6.0",
+    "@next-auth/prisma-adapter": "^1.0.6",
     "@prisma/client": "4.14.0",
-    "concurrently": "^8.0.1"
+    "@types/emojione": "^2.2.6",
+    "@types/node": "20.1.0",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "autoprefixer": "10.4.14",
+    "concurrently": "^8.0.1",
+    "dotenv": "^16.0.3",
+    "emojione": "^4.5.0",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
+    "nanostores": "^0.8.1",
+    "next": "13.4.1",
+    "next-auth": "^4.22.1",
+    "postcss": "8.4.23",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-markdown": "^8.0.7",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
+    "tailwindcss": "3.3.2",
+    "ts-node": "^10.9.1",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.2.1",
+    "prisma": "^4.14.0",
+    "tslib": "^2.5.0"
   }
 }
