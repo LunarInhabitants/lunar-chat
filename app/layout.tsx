@@ -1,6 +1,9 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import AuthContext from '@/components/auth/auth-context';
+import { WebSocketProvider } from '@/components/websocket';
+import { RealmList } from '@/components/realms/realm-list';
+import { ChannelList } from '@/components/channels/channel-list';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +24,12 @@ export default async function RootLayout({ children }: Props) {
           <header className="p-4 bg-white/20">
             <h1 className="text-2xl">LunarChat!</h1>
           </header>
-          {children}
+          <WebSocketProvider>
+            <main className="flex flex-row flex-1 overflow-hidden">
+              <RealmList />
+              {children}
+            </main>
+          </WebSocketProvider>
         </AuthContext>
       </body>
     </html>

@@ -39,7 +39,7 @@ export const ChannelList = () => {
     }, [selectedRealmId, socket]);
 
     return (
-        <div className="flex flex-col items-stretch w-1/6 bg-slate-900">
+        <div className="flex flex-col items-stretch w-1/6 border-r bg-slate-900">
             {channelGroups.map(g => <ChannelGroupEntry key={g.id} channelGroup={g} />)}
         </div>
     );
