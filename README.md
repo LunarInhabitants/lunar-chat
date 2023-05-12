@@ -69,7 +69,10 @@ A channel is a single message board where multiple users can communicate. This f
 - [x] Emoji support.
 - [ ] Advanced/Customer emoji support.
 - [ ] Realm/Channel user list.
-- [ ] User customization.
+- [ ] User groups.
+- [ ] User personalization.
+- [ ] User settings.
+- [ ] Customized log-in screen.
 
 ### Nice to haves.
 

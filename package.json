@@ -8,17 +8,21 @@
     "dev": "pnpm db:generate && concurrently --kill-others \"pnpm dev:client\" \"pnpm dev:server\"",
     "dev:client": "next dev",
     "dev:server": "pnpm start:server",
-    "build": "db:generate && pnpm build:server && pnpm build:client",
+
+    "build": "pnpm db:generate && pnpm build:server && pnpm build:client",
     "build:client": "next build",
     "build:server": "echo \"Nothing to build right now\"",
+
     "start": "concurrently --kill-others \"pnpm start:client\" \"pnpm start:server\"",
     "start:client": "next start",
     "start:server": "dotenv -c -- ts-node wss-server/index.ts",
+
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:seed": "prisma db seed",
+
     "lint": "next lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
