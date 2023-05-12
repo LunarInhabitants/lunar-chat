@@ -1,14 +1,14 @@
 "use client";
 
 import { KeyboardEvent, useContext, useRef, useState } from "react";
-import { SocketContext } from "@/components/socket-context";
+import { WebSocketContext } from "@/components/websocket";
 import { useSession } from "next-auth/react";
 import { ChannelMessageWithOwnerAndChannel } from "@/src/messages";
 import { useStore } from "@nanostores/react";
 import { selectedChannelIdStore } from "@/stores";
 
 export const MessageInput = () => {
-    const socket = useContext(SocketContext);
+    const socket = useContext(WebSocketContext);
     const session = useSession();
     const selectedChannelId = useStore(selectedChannelIdStore);
     const textarea = useRef<HTMLTextAreaElement>(null);
@@ -55,13 +55,13 @@ export const MessageInput = () => {
     }
 
     return (
-        <div className="h-12 sm:h-16 flex items-stretch">
+        <div className="flex items-stretch h-12 m-4 sm:h-16">
             <textarea ref={textarea} value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleInput} disabled={isSending}
                 placeholder="Enter a message..."
-                className="text-gray-50 bg-gray-900 resize-none outline-none px-4 py-2 flex-1 disabled:text-gray-600 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2 bg-gray-900 outline-none resize-none text-gray-50 disabled:text-gray-600 disabled:cursor-not-allowed"
             />
             <button type="button" onClick={sendMessage} disabled={isSending}
-                className="text-gray-50 bg-gray-900 hover:bg-gray-800 px-4 hidden sm:block"
+                className="hidden px-4 bg-gray-900 text-gray-50 hover:bg-gray-800 sm:block"
             >
                 Send
             </button>

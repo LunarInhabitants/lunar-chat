@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 import emojione from 'emojione';
 import { ChannelMessageWithOwnerAndChannel } from '@/src/messages';
+import remarkGfm from 'remark-gfm'; 
 
 interface Props {
     message: ChannelMessageWithOwnerAndChannel;
@@ -31,7 +32,16 @@ export const MessageEntry = ({ message }: Props) => {
                     </time>
                 </div>
                 
-                <ReactMarkdown className={`${messageIsOnlyEmoji ? `text-4xl` : ``}`}>{markdownMessage}</ReactMarkdown>
+                <ReactMarkdown className={`${messageIsOnlyEmoji ? `text-4xl` : ``}`}
+                    linkTarget="_blank"
+                    remarkPlugins={[ remarkGfm ]}
+                    disallowedElements={["h1", "h2", "h3", "h4", "h5", "h6"]}
+                    components={{
+                        'img': ({ src, alt }) => <a href={src} target="_blank">{alt ?? src}</a>
+                    }}
+                >
+                    {markdownMessage}
+                </ReactMarkdown>
             </div>
         </div>
     );

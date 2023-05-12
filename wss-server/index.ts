@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { prisma } from '../shared/db';
-import { ChannelMessageWithOwnerAndChannel } from '../src/messages';
+import { ChannelMessage } from "@prisma/client";
 
 
 // Make sure we have a port to listen on.
@@ -23,7 +23,16 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket: Socket) => {
-    socket.on("msg:send", async (msg: ChannelMessageWithOwnerAndChannel, callback: () => void) => {
+    socket.on("channel:join", (channelId: string) => {
+        // Todo: Auth this to see if the user can actually join this channel.
+        socket.join(`channel:${channelId}`);
+    });
+
+    socket.on("channel:leave", (channelId: string) => {
+        socket.leave(`channel:${channelId}`);
+    });
+
+    socket.on("msg:send", async (msg: ChannelMessage, callback: () => void) => {
         msg = await prisma.channelMessage.create({
             data: {
                 owner: {
@@ -33,34 +42,11 @@ io.on("connection", (socket: Socket) => {
                     connect: { id: msg.channelId }
                 },
                 message: msg.message,
+                extraData: msg.extraData!,
             }
-        }) as unknown as ChannelMessageWithOwnerAndChannel;
+        });
         
-        if(!msg.owner) {
-            const owner = await prisma.user.findFirst({
-                where: {
-                    id: msg.ownerId,
-                }
-            });
-
-            if(owner) {
-                msg.owner = owner;
-            }
-        }
-
-        if(!msg.channel) {
-            const channel = await prisma.realmChannel.findFirst({
-                where: {
-                    id: msg.channelId,
-                }
-            });
-
-            if(channel) {
-                msg.channel = channel;
-            }
-        }
-
-        io.emit("msg:receive", msg);
+        io.to(`channel:${msg.channelId}`).emit(`msg:receive`, msg);
         callback();
     })
 });

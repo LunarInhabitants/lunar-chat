@@ -34,6 +34,7 @@ body {
   box-shadow: 8px 8px 8px rgba(0,0,0,0.5);
   padding: 0.5rem 1rem;
   pointer-events: none;
+  white-space: nowrap;
   transition: opacity 200ms ease-in-out;
   opacity: 0;
 }

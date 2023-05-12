@@ -1,11 +1,7 @@
 "use client"
 
-import { useCallback, useContext, useEffect, useRef, useState } from "react"
-import { SocketContext } from "@/components/socket-context";
 import { MessageEntry } from "./message-entry";
-import { ChannelMessageWithOwnerAndChannel, getMessagesInChannel } from "@/src/messages";
-import { selectedChannelIdStore } from "@/stores";
-import { useStore } from "@nanostores/react";
+import { ChannelMessageWithOwnerAndChannel } from "@/src/messages";
 
 interface Props {
     messages: ChannelMessageWithOwnerAndChannel[]
@@ -14,7 +10,9 @@ interface Props {
 export const MessageList = ({ messages }: Props) => {
     if(!messages || messages.length == 0) {
         return (
-            <div>No messages. Why don&apos;t you start the conversation?</div>
+            <div className="flex items-center justify-center h-full">
+                Huh, there are no messages in this channel. Why not start the conversation?
+            </div>
         );
     }
 

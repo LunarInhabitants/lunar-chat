@@ -1,20 +1,20 @@
 "use client";
 
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import type { RealmChannel, RealmChannelGroup } from '@prisma/client';
 import { getChannelGroupsForRealm } from '@/src/channels';
 import { selectedChannelIdStore, selectedRealmIdStore } from '@/stores';
 import { useStore } from '@nanostores/react';
+import { WebSocketContext } from "@/components/websocket";
+import { ChannelGroupEntry } from './channel-group-entry';
 
 type ChannelGroup = RealmChannelGroup & { channels: RealmChannel[]};
 
 export const ChannelList = () => {
-    const session = useSession();
+    const socket = useContext(WebSocketContext);
     const selectedRealmId = useStore(selectedRealmIdStore);
     const selectedChannelId = useStore(selectedChannelIdStore);
     const [channelGroups, setChannelGroups] = useState<ChannelGroup[]>([]);
-    const userId = session?.data?.user?.id;
 
     useEffect(() => {
         getChannelGroupsForRealm(selectedRealmId).then(channelGroups => {
@@ -27,24 +27,20 @@ export const ChannelList = () => {
             } else {
                 selectedChannelIdStore.set("");
             }
+
+            if(socket) {
+                for(const cg of channelGroups) {
+                    for(const c of cg.channels) {
+                        socket.emit("channel:join", c.id);
+                    }
+                }
+            }
         });
-    }, [selectedRealmId]);
+    }, [selectedRealmId, socket]);
 
     return (
-        <div className="px-2">
-            {channelGroups.map(g => (
-                <div key={g.id}>
-                    <h3 className="italic font-bold">{g.name}</h3>
-                    <div className="px-2 flex flex-col">
-                        {g.channels.map(c => (
-                            <label key={c.id} onClick={_ => selectedChannelIdStore.set(c.id)}>
-                                <input type="radio" checked={c.id === selectedChannelId} onChange={_ => {}} />
-                                {c.name}
-                            </label>
-                        ))}
-                    </div>
-                </div>
-            ))}
+        <div className="flex flex-col items-stretch w-1/6 bg-slate-900">
+            {channelGroups.map(g => <ChannelGroupEntry key={g.id} channelGroup={g} />)}
         </div>
     );
 }

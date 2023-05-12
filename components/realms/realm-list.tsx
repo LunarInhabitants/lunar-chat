@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import type { Realm } from '@prisma/client';
 import { useStore } from '@nanostores/react';
 import { selectedRealmIdStore } from '@/stores';
+import { RealmEntry } from './realm-entry';
 
 export const RealmList = () => {
     const session = useSession();
@@ -31,12 +32,8 @@ export const RealmList = () => {
     }, [userId]);
 
     return (
-        <div className="px-2">
-            {realms.map(r => (
-                <div key={r.id}>
-                    <h2 className="text-xl font-bold">{r.name}</h2>
-                </div>
-            ))}
+        <div className="px-2 border-r bg-slate-950">
+            {realms.map(r => <RealmEntry key={r.id} realm={r} /> )}
         </div>
     );
 }

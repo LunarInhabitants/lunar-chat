@@ -160,6 +160,7 @@ model ChannelMessage {
   ownerId   String
   channelId String
   message   String   @db.Text
+  extraData Json?
 
   owner   User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   channel RealmChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)

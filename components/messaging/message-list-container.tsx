@@ -1,17 +1,17 @@
 "use client"
 
 import { useCallback, useContext, useEffect, useRef, useState } from "react"
-import { SocketContext } from "@/components/socket-context";
-import { MessageEntry } from "./message-entry";
 import { ChannelMessageWithOwnerAndChannel, getMessagesInChannel } from "@/src/messages";
-import { selectedChannelIdStore } from "@/stores";
+import { allChannelsStore as allChannelsStore, selectedChannelIdStore } from "@/stores";
 import { useStore } from "@nanostores/react";
 import { MessageList } from "./message-list";
-
+import { WebSocketContext } from "@/components/websocket";
+import { MessageInput } from "./message-input";
 
 export const MessageListContainer = () => {
-    const socket = useContext(SocketContext);
+    const socket = useContext(WebSocketContext);
     const selectedChannelId = useStore(selectedChannelIdStore);
+    const channelsStore = useStore(allChannelsStore);
     const scrollerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [messages, setMessages] = useState<ChannelMessageWithOwnerAndChannel[]>([]);
@@ -45,18 +45,34 @@ export const MessageListContainer = () => {
                     if (scrollerRef.current) {
                         scrollerRef.current.scrollTop = scrollerRef.current.scrollHeight;
                     }
-                }, 50);        
+                }, 50);
             });
         }
     }, [selectedChannelId]);
 
+    const selectedChannel = channelsStore[selectedChannelId];
+
     return (
-        <div ref={scrollerRef} className="overflow-auto flex-1 p-4">
-            {loading ? (
-                <div>Loading...</div>
-            ) : (
-                <MessageList messages={messages} />
-            )}
+        <div className="flex flex-col flex-1">
+            <div className="flex items-center gap-4 px-4 py-2 bg-slate-800">
+                <div className="font-bold min-w-[10%]">
+                    {selectedChannel?.name ?? "<UNKNOWN CHANNEL>"}
+                </div>
+                <div className="flex-1 text-sm text-gray-400">
+                    {selectedChannel?.description}
+                </div>
+            </div>
+            <div ref={scrollerRef} className="flex-1 p-4 overflow-auto">
+                {loading ? (
+                    <div className="flex items-center justify-center h-full">
+                        Loading...
+                    </div>
+                ) : (
+                    <MessageList messages={messages} />
+                )}
+            </div>
+
+            <MessageInput />
         </div>
     );
 }

@@ -21,9 +21,7 @@ export default async function RootLayout({ children }: Props) {
           <header className="p-4 bg-white/20">
             <h1 className="text-2xl">LunarChat!</h1>
           </header>
-          <div className="overflow-hidden flex-1 flex flex-row items-stretch">
-            {children}
-          </div>
+          {children}
         </AuthContext>
       </body>
     </html>
