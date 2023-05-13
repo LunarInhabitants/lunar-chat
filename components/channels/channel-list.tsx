@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 import type { RealmChannel, RealmChannelGroup } from '@prisma/client';
-import { getChannelGroupsForRealm } from '@/src/channels';
+import { getChannelGroupsForRealm } from '@/shared/db/channels';
 import { selectedChannelIdStore, selectedRealmIdStore } from '@/stores';
 import { useStore } from '@nanostores/react';
 import { WebSocketContext } from "@/components/websocket";

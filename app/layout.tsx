@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import AuthContext from '@/components/auth/auth-context';
 import { WebSocketProvider } from '@/components/websocket';
 import { RealmList } from '@/components/realms/realm-list';
-import { ChannelList } from '@/components/channels/channel-list';
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { MessageEntry } from "./message-entry";
-import { ChannelMessageWithOwnerAndChannel } from "@/src/messages";
+import { ChannelMessageWithOwnerAndChannel } from "@/shared/db/messages";
 
 interface Props {
     messages: ChannelMessageWithOwnerAndChannel[]

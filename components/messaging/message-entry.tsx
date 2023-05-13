@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import emojione from 'emojione';
-import { ChannelMessageWithOwnerAndChannel } from '@/src/messages';
+import { ChannelMessageWithOwnerAndChannel } from '@/shared/db/messages';
 import remarkGfm from 'remark-gfm';
 
 interface Props {

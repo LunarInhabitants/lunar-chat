@@ -15,6 +15,9 @@ module.exports = {
     },
   },
   plugins: [
+    require('@tailwindcss/forms'),
+
+    // This adds all colours as CSS variables for use by non-tailwind CSS.
     function ({ addBase, theme }) {
       function extractColorVars (colorObj, colorGroup = '') {
         return Object.keys(colorObj).reduce((vars, colorKey) => {

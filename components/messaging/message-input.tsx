@@ -3,7 +3,7 @@
 import { KeyboardEvent, useContext, useRef, useState } from "react";
 import { WebSocketContext } from "@/components/websocket";
 import { useSession } from "next-auth/react";
-import { ChannelMessageWithOwnerAndChannel } from "@/src/messages";
+import { ChannelMessageWithOwnerAndChannel } from "@/shared/db/messages";
 import { useStore } from "@nanostores/react";
 import { selectedChannelIdStore } from "@/stores";
 

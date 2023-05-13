@@ -1,8 +1,8 @@
 "use client"
 
 import { useCallback, useContext, useEffect, useRef, useState } from "react"
-import { ChannelMessageWithOwnerAndChannel, getMessagesInChannel } from "@/src/messages";
-import { allChannelsStore as allChannelsStore, selectedChannelIdStore } from "@/stores";
+import { ChannelMessageWithOwnerAndChannel, getMessagesInChannel } from "@/shared/db/messages";
+import { userJoinedChannelsStore as userJoinedChannelsStore, selectedChannelIdStore } from "@/stores";
 import { useStore } from "@nanostores/react";
 import { MessageList } from "./message-list";
 import { WebSocketContext } from "@/components/websocket";
@@ -11,7 +11,7 @@ import { MessageInput } from "./message-input";
 export const MessageListContainer = () => {
     const socket = useContext(WebSocketContext);
     const selectedChannelId = useStore(selectedChannelIdStore);
-    const channelsStore = useStore(allChannelsStore);
+    const channelsStore = useStore(userJoinedChannelsStore);
     const scrollerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [messages, setMessages] = useState<ChannelMessageWithOwnerAndChannel[]>([]);

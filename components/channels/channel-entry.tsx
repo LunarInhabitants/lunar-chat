@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 import type { RealmChannel } from '@prisma/client';
-import { allChannelsStore, selectedChannelIdStore } from '@/stores';
+import { userJoinedChannelsStore, selectedChannelIdStore } from '@/stores';
 import { useStore } from '@nanostores/react';
 import { WebSocketContext } from "@/components/websocket";
 
@@ -19,16 +19,16 @@ export const ChannelEntry = ({ channel }: Props) => {
     useEffect(() => {
         if(channel && socket) {
             socket.emit("channel:join", channel.id);
-            allChannelsStore.setKey(channel.id, channel);
+            userJoinedChannelsStore.setKey(channel.id, channel);
         }
 
         // On component dismount
         return () => {
             if(channel && socket) {
                 socket.emit("channel:leave", channel.id);
-                const other = allChannelsStore.get()[channel.id];
+                const other = userJoinedChannelsStore.get()[channel.id];
                 if(other === channel) {
-                    allChannelsStore.setKey(channel.id, undefined);
+                    userJoinedChannelsStore.setKey(channel.id, undefined);
                 }
             }    
         }
