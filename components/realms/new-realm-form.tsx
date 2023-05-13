@@ -1,13 +1,23 @@
 "use client";
 
+import { createNewRealm } from "@/shared/db/realms";
+import { updateUserJoinedRealmsStore, userStore } from "@/stores";
 import { PropsWithChildren, useState } from "react"
 
 export const NewRealmForm = () => {
     const [realmName, setRealmName] = useState<string>("");
+    const [isPublic, setIsPublic] = useState<boolean>(true);
 
-    const createNewRealm = () => {
-        const filteredRealmname = realmName.trim();
-        alert(`TODO: Create new realm with name ${filteredRealmname} and a subscription for the current user as admin to that realm.`);
+    const doCreateNewRealm = async () => {
+        const userId = userStore.get()?.id;
+        if(!userId) {
+            console.warn(`Could not create realm. Could not get a user ID!`);
+            return;
+        }
+
+        const filteredRealmName = realmName.trim();
+        await createNewRealm(userId, filteredRealmName, isPublic);
+        await updateUserJoinedRealmsStore();
     }
 
     return (
@@ -21,14 +31,12 @@ export const NewRealmForm = () => {
 
             <FormRow>
                 <label htmlFor="new-realm__public" className="cursor-not-allowed">Public:</label>
-                <input id="realm__public" type="checkbox" defaultChecked={true} disabled className="cursor-not-allowed" />
+                <input id="realm__public" type="checkbox" checked={isPublic} onChange={e => setIsPublic(e.target.checked)} 
+                    className="cursor-not-allowed" 
+                />
             </FormRow>
-
-            <p className="italic">
-                Note: For development purposes, all created realms are public by default.
-            </p>
-
-            <button type="button" onClick={createNewRealm} disabled={realmName.trim().length === 0}
+            
+            <button type="button" onClick={doCreateNewRealm} disabled={realmName.trim().length === 0}
                 className="px-2 py-1 my-2 rounded-lg bg-cyan-700 hover:bg-cyan-600 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
             >
                 Create Realm!

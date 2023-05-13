@@ -1,7 +1,7 @@
 "use client";
 
-import { getPublicRealmsForAddRealmPage } from "@/shared/db/realms";
-import { userJoinedRealmsStore } from "@/stores";
+import { getPublicRealmsForAddRealmPage, joinRealm, leaveRealm } from "@/shared/db/realms";
+import { updateUserJoinedRealmsStore, userJoinedRealmsStore, userStore } from "@/stores";
 import { useStore } from "@nanostores/react";
 import { Realm } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
@@ -34,12 +34,26 @@ const RealmEntry = ({ realm }: RealmEntryProps) => {
     const realmsStore = useStore(userJoinedRealmsStore);
     const alreadyJoined = realmsStore[realm.id];
 
-    const joinRealm = () => {
-        alert("TODO: Add subscription");
+    const doJoinRealm = async () => {
+        const userId = userStore.get()?.id;
+        if(!userId) {
+            console.warn(`Could not join realm. Could not get a user ID!`);
+            return;
+        }
+
+        await joinRealm(userId, realm.id);
+        await updateUserJoinedRealmsStore();
     }
 
-    const leaveRealm = () => {
-        alert("TODO: Remove subscription");
+    const doLeaveRealm = async () => {
+        const userId = userStore.get()?.id;
+        if(!userId) {
+            console.warn(`Could not leave realm. Could not get a user ID!`);
+            return;
+        }
+        
+        await leaveRealm(userId, realm.id);
+        await updateUserJoinedRealmsStore(true);
     }
 
     return (
@@ -52,13 +66,13 @@ const RealmEntry = ({ realm }: RealmEntryProps) => {
                 <p className="text-sm text-gray-300">{realm.description}</p>
             </div>
             {alreadyJoined ? (
-                <button type="button" onClick={joinRealm}
+                <button type="button" onClick={doLeaveRealm}
                     className="px-4 rounded bg-rose-600 hover:bg-rose-500"
                 >
                     Leave
                 </button>
             ) : (
-                <button type="button" onClick={leaveRealm}
+                <button type="button" onClick={doJoinRealm}
                     className="px-4 rounded bg-slate-500 hover:bg-slate-400"
                 >
                     Join

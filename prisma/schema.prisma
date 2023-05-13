@@ -110,11 +110,11 @@ model RealmUserGroup {
 model UserRealmSubscription {
   realmId String
   userId  String
-  groupId String
+  groupId String?
 
-  realm Realm          @relation(fields: [realmId], references: [id], onDelete: Cascade)
-  user  User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  group RealmUserGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  realm Realm           @relation(fields: [realmId], references: [id], onDelete: Cascade)
+  user  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group RealmUserGroup? @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
   @@id([realmId, userId])
   @@index([realmId])
