@@ -1,7 +1,7 @@
 "use client";
 
 import { getPublicRealmsForAddRealmPage, joinRealm, leaveRealm } from "@/shared/db/realms";
-import { updateUserJoinedRealmsStore, userJoinedRealmsStore, userStore } from "@/stores";
+import { updateUserJoinedRealmsStore, userJoinedRealmsStore, currentUserStore } from "@/stores";
 import { useStore } from "@nanostores/react";
 import { Realm } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
@@ -35,7 +35,7 @@ const RealmEntry = ({ realm }: RealmEntryProps) => {
     const alreadyJoined = realmsStore[realm.id];
 
     const doJoinRealm = async () => {
-        const userId = userStore.get()?.id;
+        const userId = currentUserStore.get()?.id;
         if(!userId) {
             console.warn(`Could not join realm. Could not get a user ID!`);
             return;
@@ -46,7 +46,7 @@ const RealmEntry = ({ realm }: RealmEntryProps) => {
     }
 
     const doLeaveRealm = async () => {
-        const userId = userStore.get()?.id;
+        const userId = currentUserStore.get()?.id;
         if(!userId) {
             console.warn(`Could not leave realm. Could not get a user ID!`);
             return;

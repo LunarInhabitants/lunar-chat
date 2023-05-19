@@ -1,6 +1,6 @@
 "use client";
 
-import { userStore } from "@/stores";
+import { currentUserStore } from "@/stores";
 import { User } from "next-auth";
 import { SessionProvider, useSession } from "next-auth/react";
 import { PropsWithChildren, useEffect } from "react";
@@ -22,7 +22,7 @@ const SessionStoreProvider = ({ children }: PropsWithChildren) => {
   const session = useSession();
   
   useEffect(() => {
-    userStore.set(session.data?.user as User ?? null);
+    currentUserStore.set(session.data?.user as User ?? null);
   }, [session]);
 
   return null;

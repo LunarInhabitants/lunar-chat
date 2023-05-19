@@ -7,6 +7,9 @@ const nextConfig = {
             'bufferutil': 'commonjs bufferutil',
         })
         return config
+    },
+    experimental: {
+        serverActions: true
     }
 };
 

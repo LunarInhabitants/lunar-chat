@@ -1,9 +1,11 @@
 import { getRealmsForUser } from '@/shared/db/realms';
-import { Realm } from '@prisma/client';
 import { atom,  map, onNotify } from 'nanostores';
-import { userStore } from '.';
+import { allKnownUsersStore, currentUserStore } from '.';
 
-export const userJoinedRealmsStore = map<{ [key: string]: Realm | undefined }>({});
+type Unpacked<T> = T extends (infer U)[] ? U : T;
+export type RealmWithChannelsAndUsers = Unpacked<Awaited<ReturnType<typeof getRealmsForUser>>>;
+
+export const userJoinedRealmsStore = map<{ [key: string]: RealmWithChannelsAndUsers | undefined }>({});
 export const selectedRealmIdStore = atom<string>("");
 
 /**
@@ -12,7 +14,7 @@ export const selectedRealmIdStore = atom<string>("");
  * @returns 
  */
 export const updateUserJoinedRealmsStore = async (forceRefetch?: boolean) => {
-    const user = userStore.get();
+    const user = currentUserStore.get();
     
     if(!user) {
         return;
@@ -24,10 +26,20 @@ export const updateUserJoinedRealmsStore = async (forceRefetch?: boolean) => {
         userJoinedRealmsStore.set({});
     }
 
+    const allUsers = allKnownUsersStore.get();
+    const addedUserIds: { [key: string]: boolean } = {};
+
     for(const realm of realms) {
         userJoinedRealmsStore.setKey(realm.id, realm);
+
+        for(const sub of realm.userRealmSubscriptions) {
+            if(!allUsers[sub.user.id] && !addedUserIds[sub.user.id]) {
+                allKnownUsersStore.setKey(sub.user.id, sub.user);
+                addedUserIds[sub.user.id] = true;
+            }
+        }
     }
 }
 
 // When the user store changes, reload the realm.
-onNotify(userStore, () => updateUserJoinedRealmsStore());
+onNotify(currentUserStore, () => updateUserJoinedRealmsStore());

@@ -10,6 +10,18 @@ export const getRealmsForUser = async (userId: string) => {
                     userId
                 }
             }
+        },
+        include: {
+            channelGroups: {
+                include: {
+                    channels: true
+                }
+            },
+            userRealmSubscriptions: {
+                include: {
+                    user: true
+                }
+            }
         }
     });
 

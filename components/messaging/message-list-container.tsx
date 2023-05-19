@@ -56,7 +56,7 @@ export const MessageListContainer = () => {
         <div className="flex flex-col flex-1">
             <div className="flex items-center gap-4 px-4 py-2 bg-slate-800">
                 <div className="font-bold min-w-[10%]">
-                    {selectedChannel?.name ?? "<UNKNOWN CHANNEL>"}
+                    {selectedChannel?.name ?? "Loading..."}
                 </div>
                 <div className="flex-1 text-sm text-gray-400">
                     {selectedChannel?.description}

@@ -1,7 +1,7 @@
 "use client";
 
 import { createNewRealm } from "@/shared/db/realms";
-import { updateUserJoinedRealmsStore, userStore } from "@/stores";
+import { updateUserJoinedRealmsStore, currentUserStore } from "@/stores";
 import { PropsWithChildren, useState } from "react"
 
 export const NewRealmForm = () => {
@@ -9,7 +9,7 @@ export const NewRealmForm = () => {
     const [isPublic, setIsPublic] = useState<boolean>(true);
 
     const doCreateNewRealm = async () => {
-        const userId = userStore.get()?.id;
+        const userId = currentUserStore.get()?.id;
         if(!userId) {
             console.warn(`Could not create realm. Could not get a user ID!`);
             return;

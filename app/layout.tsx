@@ -24,10 +24,13 @@ export default async function RootLayout({ children }: Props) {
             <h1 className="text-2xl">LunarChat!</h1>
           </header>
           <WebSocketProvider>
-            <main className="flex flex-row flex-1 overflow-hidden">
+            <div className="flex flex-row flex-1 overflow-hidden">
               <RealmList />
-              {children}
-            </main>
+              <main className="relative flex flex-row flex-1 overflow-hidden">
+                {children}
+              </main>
+            </div>
+
           </WebSocketProvider>
         </AuthContext>
       </body>

@@ -2,12 +2,18 @@ import ReactMarkdown from 'react-markdown';
 import emojione from 'emojione';
 import { ChannelMessageWithOwnerAndChannel } from '@/shared/db/messages';
 import remarkGfm from 'remark-gfm';
+import { useStore } from '@nanostores/react';
+import { allKnownUsersStore } from '@/stores';
 
 interface Props {
     message: ChannelMessageWithOwnerAndChannel;
 }
 
 export const MessageEntry = ({ message }: Props) => {
+    const allKnownUsers = useStore(allKnownUsersStore);
+
+    const owner = allKnownUsers[message.ownerId];
+
     const timestamp = new Date(message.createdAt);
     let markdownMessage = message.message
         .replace(/\n/gi, "\n\n"); // Markdown normally needs an extra newline to separate into different paragraphs, but to make message entry 
@@ -25,7 +31,7 @@ export const MessageEntry = ({ message }: Props) => {
             <div className="px-4 pt-1 pb-2 bg-gray-800">
                 <div className={`flex flex-col md:flex-row md:gap-2 md:items-center ${messageIsOnlyEmoji ? `mb-0` : `mb-2`}`}>
                     <span className="font-bold">
-                        {message.owner?.name ?? message.ownerId}
+                        {owner?.name ?? "-- Loading --"}
                     </span>
                     <time dateTime={timestamp.toISOString()} className="text-xs text-gray-400">
                         <span className="hidden md:inline-block">{timestamp.toLocaleString([], { dateStyle: "full", timeStyle: "medium" })}</span>

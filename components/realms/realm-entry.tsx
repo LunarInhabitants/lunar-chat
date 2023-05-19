@@ -1,13 +1,13 @@
 "use client";
 
-import { selectedRealmIdStore } from "@/stores";
+import { getFirstChannelInRealm, routerPush } from "@/shared";
+import { RealmWithChannelsAndUsers, selectedChannelIdStore, selectedRealmIdStore } from "@/stores";
 import { useStore } from "@nanostores/react";
-import { Realm } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { PropsWithChildren } from "react";
 
 interface Props {
-    realm: Realm;
+    realm: RealmWithChannelsAndUsers;
 }
 
 export const RealmEntry = ({ realm }: Props) => {
@@ -15,8 +15,25 @@ export const RealmEntry = ({ realm }: Props) => {
     const selectedRealmId = useStore(selectedRealmIdStore);
 
     const onClick = () => {
-        router.push("/");
+        const needFullPageRefresh = !location.pathname.startsWith(`/${selectedRealmId}`);
+
         selectedRealmIdStore.set(realm.id);
+
+        const firstChannel = getFirstChannelInRealm(realm);
+        if(!firstChannel) {
+            // Realm has no channels
+            routerPush(`/${realm.id}/`);
+            return;
+        }
+
+        selectedChannelIdStore.set(firstChannel.id);
+
+        const destUrl = `/${realm.id}/${firstChannel.id}`;
+        if(needFullPageRefresh) {
+            router.push(destUrl);
+        } else {
+            routerPush(destUrl);
+        }
     }
 
     return (
@@ -30,7 +47,7 @@ export const RealmEntry = ({ realm }: Props) => {
 }
 
 export const AddRealmButton = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     return (
         <button type="button" className="relative mt-2 group" onClick={_ => router.push("/addrealm")}>
