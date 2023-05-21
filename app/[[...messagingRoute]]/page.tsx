@@ -1,10 +1,15 @@
 "use client";
 
-import { PageProps } from '@/.next/types/app/layout';
 import { ChannelList } from '@/components/channels';
 import { MessageListContainer } from '@/components/messaging';
 import { selectedChannelIdStore, selectedRealmIdStore } from '@/stores';
 import { useEffect } from 'react';
+
+interface PageProps {
+  params: {
+    messagingRoute?: [string?, string?];
+  }
+}
 
 export default function Home({ params }: PageProps) {
   useEffect(() => {
